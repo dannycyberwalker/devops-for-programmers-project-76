@@ -5,13 +5,13 @@
 - ansible
 - make
 
-### Commands
-Install dependencies:
+### Deploy
+1. Install dependencies:
 ```
-make deps
+make setup
 ```
-
-Configure and deploy to servers:
+2. Set up your credentials into .env file. 
+3. Configure and deploy to servers:
 ```
 make servers
 ``` 

@@ -8,6 +8,14 @@
 
   roles:
     - geerlingguy.pip
-    
+
   tasks:
+    - community.docker.docker_container:
+        name: app
+        image: redmine:latest
+        restart_policy: always
+        state: started
+        ports:
+          - 3000:3000
+        env_file: .env
   

@@ -1,6 +1,12 @@
 - hosts: all
   become: true
   gather_facts: no
+
+  vars:
+    app_path: ~/app
+    pip_install_packages:
+      - name: docker  
+
   pre_tasks:
     - name: Install dependencies
       apt:
@@ -47,20 +53,27 @@
         name: docker 
         state: restarted
 
-  vars:
-    pip_install_packages:
-      - name: docker  
-
   roles:
     - geerlingguy.pip
 
   tasks:
-    - community.docker.docker_container:
+    - name: Creates directory
+      file:
+        path: "{{app_path}}"
+        state: directory
+
+    - name: Copy environment variable
+      ansible.builtin.copy:
+        src: .env
+        dest: "{{app_path}}/.env"
+
+    - name: Run container    
+      community.docker.docker_container:
         name: app
         image: redmine:latest
         restart_policy: always
         state: started
         ports:
           - 3000:3000
-        env_file: .env
+        env_file: "{{app_path}}/.env"
   

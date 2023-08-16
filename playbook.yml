@@ -67,12 +67,12 @@
         src: .env
         dest: "{{app_path}}/.env"
 
-    - name: Run container    
+    - name: Run redmine container    
       community.docker.docker_container:
         name: app
         image: redmine:latest
         restart_policy: always
-        state: started
+        state: stopped
         ports:
           - 3000:3000
         env_file: "{{app_path}}/.env"

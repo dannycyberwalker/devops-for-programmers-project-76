@@ -1,0 +1,35 @@
+- hosts: all
+  become: true
+  gather_facts: no
+
+  tasks:
+    - name: Creates directory
+      file:
+        path: /caddy
+        state: directory
+
+    - name: Copy Caddyfile
+      ansible.builtin.copy:
+        src: Caddyfile
+        dest: /caddy/Caddyfile
+        force: true
+
+    - name: Copy file
+      ansible.builtin.copy:
+        src: LgC6ZTu_GMbYIH_BqP6WQHlYIuBedqoKMMMyCC1aYc0.html
+        dest: /caddy/LgC6ZTu_GMbYIH_BqP6WQHlYIuBedqoKMMMyCC1aYc0.html
+        force: true        
+
+    - name: Run caddy container    
+      community.docker.docker_container:
+        name: caddy
+        image: caddy:latest
+        restart_policy: "no"
+        restart: yes
+        state: started
+        ports:
+          - 80:80
+          - 443:443
+        volumes:
+        - /caddy/Caddyfile:/etc/caddy/Caddyfile
+        - /caddy:/caddy

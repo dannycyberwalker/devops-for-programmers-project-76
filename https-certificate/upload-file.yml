@@ -16,8 +16,8 @@
 
     - name: Copy file
       ansible.builtin.copy:
-        src: LgC6ZTu_GMbYIH_BqP6WQHlYIuBedqoKMMMyCC1aYc0.html
-        dest: /caddy/LgC6ZTu_GMbYIH_BqP6WQHlYIuBedqoKMMMyCC1aYc0.html
+        src: BSkiqbLvyiTw106v2fvqTjZjOvoe-A__l9ZHTNvojro.html
+        dest: /caddy/BSkiqbLvyiTw106v2fvqTjZjOvoe-A__l9ZHTNvojro.html
         force: true        
 
     - name: Run caddy container    

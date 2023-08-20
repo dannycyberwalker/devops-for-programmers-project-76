@@ -59,13 +59,13 @@
   tasks:
     - name: Creates directory
       file:
-        path: "{{app_path}}"
+        path: "{{ app_path }}"
         state: directory
 
     - name: Copy environment variable
       ansible.builtin.copy:
         src: .env
-        dest: "{{app_path}}/.env"
+        dest: "{{ app_path }}/.env"
 
     - name: Run redmine container    
       community.docker.docker_container:
@@ -75,5 +75,7 @@
         state: started
         ports:
           - 3000:3000
-        env_file: "{{app_path}}/.env"
+        env:
+          REDMINE_DB_PASSWORD: "{{ DB_PASSWORD }}"
+        env_file: "{{ app_path }}/.env"
   

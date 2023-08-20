@@ -12,8 +12,13 @@
 ```
 make setup
 ```
-2. Set up your credentials into .env file. 
-3. Configure and deploy to servers:
+2. Set up your environment in .env file.
+3. Add ansible vault secret for db password:
+```
+make vault pass=<your password>
+```
+4. Put password which you entered in .vaultpassword 
+5. Configure and deploy to servers:
 ```
 make servers
 ``` 

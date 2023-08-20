@@ -1,7 +1,0 @@
-http://localhost http://158.160.32.86 http://www.dannycw.xyz {
-	handle /.well-known/acme-challenge/BSkiqbLvyiTw106v2fvqTjZjOvoe-A__l9ZHTNvojro {
-        root * /caddy
-        rewrite * /BSkiqbLvyiTw106v2fvqTjZjOvoe-A__l9ZHTNvojro.html
-        file_server
-    }
-}

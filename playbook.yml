@@ -72,7 +72,7 @@
         name: app
         image: redmine:latest
         restart_policy: always
-        state: stopped
+        state: started
         ports:
           - 3000:3000
         env_file: "{{app_path}}/.env"

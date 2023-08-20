@@ -3,11 +3,24 @@
   gather_facts: no
 
   vars:
+    datadog_api_key: "a7a5f94d9e8b550ae76295f742d534ae"
+    datadog_site: "datadoghq.eu"
     app_path: ~/app
     pip_install_packages:
       - name: docker  
 
   pre_tasks:
+    - name: Creates directory
+      ansible.builtin.file:
+        path: /etc/datadog-agent/conf.d
+        state: directory
+
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: services/datadog/http_check.yaml
+        dest: /etc/datadog-agent/conf.d/http_check.yaml
+        mode: 777
+
     - name: Install dependencies
       apt:
         name: "{{item}}"
@@ -55,6 +68,7 @@
 
   roles:
     - geerlingguy.pip
+    - datadog.datadog
 
   tasks:
     - name: Creates directory

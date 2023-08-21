@@ -48,8 +48,10 @@
       notify: Restart docker
            
   roles:
-    - geerlingguy.pip
-    - datadog.datadog
+    - role: geerlingguy.pip
+    - role: datadog.datadog
+      when: inventory_hostname in groups['webservers']
+      
 
   tasks:
     - name: Creates directory
@@ -57,12 +59,14 @@
         path: /etc/datadog-agent/conf.d/http_check.d
         state: directory
         owner: dd-agent
+      when: inventory_hostname in groups['webservers']
 
     - name: Copy file with owner and permissions
       ansible.builtin.copy:
         src: services/datadog/http_check.yaml
         dest: /etc/datadog-agent/conf.d/http_check.d/http_check.yaml
         owner: dd-agent
+      when: inventory_hostname in groups['webservers']
       notify: Restart Datadog
 
     - name: Creates directory

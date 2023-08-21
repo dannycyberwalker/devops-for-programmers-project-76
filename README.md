@@ -18,7 +18,11 @@ make setup
 make vault dbpass=<your db password> ddkey=<your datadog api key>
 ```
 4. Put password which you entered in .vaultpassword 
-5. Configure and deploy to servers:
+5. Install docker if you need:
 ```
-make servers
+make setup-docker
+```
+6. Configure and deploy to servers:
+```
+make deploy
 ``` 

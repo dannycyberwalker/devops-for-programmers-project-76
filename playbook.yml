@@ -8,50 +8,11 @@
     app_path: ~/app
     pip_install_packages:
       - name: docker  
-
-  pre_tasks:
-    - name: Install dependencies
-      apt:
-        name: 
-          - apt-transport-https
-          - ca-certificates
-          - curl
-          - gnupg-agent
-          - software-properties-common
-        state: present
-        update_cache: yes
-        
-    - name: Add GPG
-      apt_key:
-        url: https://download.docker.com/linux/ubuntu/gpg
-        state: present
-
-    - name: Add docker rep
-      apt_repository:
-        repo: deb https://download.docker.com/linux/ubuntu bionic stable
-        state: present
-
-    - name: Install docker
-      apt:
-        name: 
-          - docker-ce
-          - docker-ce-cli
-          - containerd.io        
-        state: latest
-        update_cache: yes
-            
-    - name: Check docker service status
-      service:
-        name: docker
-        state: started
-        enabled: yes
-      notify: Restart docker
            
   roles:
     - role: geerlingguy.pip
     - role: datadog.datadog
-      when: inventory_hostname in groups['webservers']
-      
+      when: inventory_hostname in groups['webservers'] 
 
   tasks:
     - name: Creates directory
@@ -92,11 +53,6 @@
         env_file: "{{ app_path }}/.env"
 
   handlers:
-    - name: Restart docker
-      service: 
-        name: docker 
-        state: restarted
-
     - name: Restart Datadog
       service: 
         name: datadog-agent 

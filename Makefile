@@ -2,7 +2,10 @@ setup:
 	cp .env.example .env
 	ansible-galaxy install -r requirements.yml
 
-servers:
+setup-docker:
+	ansible-playbook docker.yml -i inventory.ini -vv --vault-password-file .vaultpassword
+
+deploy:
 	ansible-playbook playbook.yml -i inventory.ini -vv --vault-password-file .vaultpassword
 
 vault:

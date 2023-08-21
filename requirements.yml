@@ -1,2 +1,5 @@
-- name: geerlingguy.pip
-- name: datadog.datadog
+roles:  
+  - name: geerlingguy.pip
+  - name: datadog.datadog
+
+collections:  

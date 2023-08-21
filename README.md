@@ -13,9 +13,9 @@
 make setup
 ```
 2. Set up your environment in .env file.
-3. Add ansible vault secret for db password:
+3. Set up your secrets in ansible vault:
 ```
-make vault dbpass=<your password> ddkey=<your datadog api key>
+make vault dbpass=<your db password> ddkey=<your datadog api key>
 ```
 4. Put password which you entered in .vaultpassword 
 5. Configure and deploy to servers:

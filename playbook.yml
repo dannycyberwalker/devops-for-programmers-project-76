@@ -3,35 +3,23 @@
   gather_facts: no
 
   vars:
-    datadog_api_key: "a7a5f94d9e8b550ae76295f742d534ae"
+    datadog_api_key: ""
     datadog_site: "datadoghq.eu"
     app_path: ~/app
     pip_install_packages:
       - name: docker  
 
   pre_tasks:
-    - name: Creates directory
-      ansible.builtin.file:
-        path: /etc/datadog-agent/conf.d
-        state: directory
-
-    - name: Copy file with owner and permissions
-      ansible.builtin.copy:
-        src: services/datadog/http_check.yaml
-        dest: /etc/datadog-agent/conf.d/http_check.yaml
-        mode: 777
-
     - name: Install dependencies
       apt:
-        name: "{{item}}"
+        name: 
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg-agent
+          - software-properties-common
         state: present
         update_cache: yes
-      loop:
-        - apt-transport-https
-        - ca-certificates
-        - curl
-        - gnupg-agent
-        - software-properties-common
         
     - name: Add GPG
       apt_key:
@@ -45,13 +33,12 @@
 
     - name: Install docker
       apt:
-        name: "{{item}}"
+        name: 
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io        
         state: latest
         update_cache: yes
-      loop:
-        - docker-ce
-        - docker-ce-cli
-        - containerd.io
             
     - name: Check docker service status
       service:
@@ -60,17 +47,24 @@
         enabled: yes
       notify: Restart docker
            
-  handlers:
-    - name: Restart docker
-      service: 
-        name: docker 
-        state: restarted
-
   roles:
     - geerlingguy.pip
     - datadog.datadog
 
   tasks:
+    - name: Creates directory
+      ansible.builtin.file:
+        path: /etc/datadog-agent/conf.d/http_check.d
+        state: directory
+        owner: dd-agent
+
+    - name: Copy file with owner and permissions
+      ansible.builtin.copy:
+        src: services/datadog/http_check.yaml
+        dest: /etc/datadog-agent/conf.d/http_check.d/http_check.yaml
+        owner: dd-agent
+      notify: Restart Datadog
+
     - name: Creates directory
       file:
         path: "{{ app_path }}"
@@ -92,4 +86,15 @@
         env:
           REDMINE_DB_PASSWORD: "{{ DB_PASSWORD }}"
         env_file: "{{ app_path }}/.env"
+
+  handlers:
+    - name: Restart docker
+      service: 
+        name: docker 
+        state: restarted
+
+    - name: Restart Datadog
+      service: 
+        name: datadog-agent 
+        state: restarted
   

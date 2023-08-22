@@ -12,13 +12,13 @@
 ```
 make setup
 ```
-2. Set up your environment in .env file.
+2. Set up your environment in group_vars/all/environments.yaml file.
 3. Set up your secrets in ansible vault:
 ```
 make vault dbpass=<your db password> ddkey=<your datadog api key>
 ```
 4. Put password which you entered in .vaultpassword 
-5. Install docker if you need:
+5. Install docker on servers if you need:
 ```
 make setup-docker
 ```

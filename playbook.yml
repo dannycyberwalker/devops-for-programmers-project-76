@@ -6,7 +6,6 @@
     datadog_api_key: "{{ DATADOG_KEY }}"
     datadog_site: "datadoghq.eu"
     app_path: app
-    actor: danny
     pip_install_packages:
       - name: docker  
            
@@ -35,7 +34,6 @@
       ansible.builtin.file:
         path: "{{ app_path }}"
         state: directory
-        owner: "{{ actor }}"
 
     - name: Copy environment variable
       ansible.builtin.copy:
@@ -45,7 +43,6 @@
           REDMINE_DB_PORT={{ REDMINE_DB_PORT }}
           REDMINE_DB_DATABASE={{ REDMINE_DB_DATABASE }}
           REDMINE_DB_USERNAME={{ REDMINE_DB_USERNAME }}
-        owner: "{{ actor }}"
 
     - name: Run redmine container    
       community.docker.docker_container:

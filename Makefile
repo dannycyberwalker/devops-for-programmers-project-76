@@ -1,5 +1,4 @@
 setup:
-	cp .env.example .env
 	ansible-galaxy install -r requirements.yml
 
 setup-docker:
@@ -13,3 +12,6 @@ vault:
 	echo "DATADOG_KEY: $(ddkey)" >> group_vars/webservers/vault.yml
 	ansible-vault encrypt group_vars/webservers/vault.yml
 	echo "you vault password" > .vaultpassword
+
+drop-known-hosts:
+	rm ~/.ssh/known_hosts

@@ -5,7 +5,7 @@
   vars:
     datadog_api_key: "{{ DATADOG_KEY }}"
     datadog_site: "datadoghq.eu"
-    app_path: ~/app
+    app_path: app
     pip_install_packages:
       - name: docker  
            
@@ -15,14 +15,14 @@
       when: groups['webservers'] is defined and inventory_hostname in groups['webservers'] 
 
   tasks:
-    - name: Creates directory
+    - name: Creates datadog directory
       ansible.builtin.file:
         path: /etc/datadog-agent/conf.d/http_check.d
         state: directory
         owner: dd-agent
       when: groups['webservers'] is defined and inventory_hostname in groups['webservers']
 
-    - name: Copy file with owner and permissions
+    - name: Copy http health check config
       ansible.builtin.copy:
         src: services/datadog/http_check.yaml
         dest: /etc/datadog-agent/conf.d/http_check.d/http_check.yaml
@@ -30,15 +30,19 @@
       when: groups['webservers'] is defined and inventory_hostname in groups['webservers']
       notify: Restart Datadog
 
-    - name: Creates directory
+    - name: Creates app directory
       file:
         path: "{{ app_path }}"
         state: directory
 
     - name: Copy environment variable
       ansible.builtin.copy:
-        src: .env
         dest: "{{ app_path }}/.env"
+        content: |
+          REDMINE_DB_POSTGRES={{ REDMINE_DB_POSTGRES }}
+          REDMINE_DB_PORT={{ REDMINE_DB_PORT }}
+          REDMINE_DB_DATABASE={{ REDMINE_DB_DATABASE }}
+          REDMINE_DB_USERNAME={{ REDMINE_DB_USERNAME }}
 
     - name: Run redmine container    
       community.docker.docker_container:

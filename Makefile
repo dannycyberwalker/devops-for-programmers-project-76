@@ -8,10 +8,10 @@ deploy:
 	ansible-playbook playbook.yml -i inventory.ini -vv --vault-password-file .vaultpassword
 
 vault:
-	echo "DB_PASSWORD: $(dbpass)" > group_vars/webservers/vault.yml
-	echo "DATADOG_KEY: $(ddkey)" >> group_vars/webservers/vault.yml
+	echo "secret_db_password: $(dbpass)" > group_vars/webservers/vault.yml
+	echo "secret_datadog_key: $(ddkey)" >> group_vars/webservers/vault.yml
 	ansible-vault encrypt group_vars/webservers/vault.yml
-	echo "you vault password" > .vaultpassword
+	echo "your vault password" > .vaultpassword
 
 drop-known-hosts:
 	rm ~/.ssh/known_hosts

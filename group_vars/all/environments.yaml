@@ -1,4 +1,6 @@
-REDMINE_DB_POSTGRES: c-c9qmll7llu7njmi109lf.rw.mdb.yandexcloud.net
-REDMINE_DB_PORT: 6432
-REDMINE_DB_DATABASE: webdb
-REDMINE_DB_USERNAME: danny
+redmine_db_postgres: c-c9qmll7llu7njmi109lf.rw.mdb.yandexcloud.net
+redmine_db_port: 6432
+redmine_db_database: webdb
+redmine_db_username: danny
+datadog_site: "datadoghq.eu"
+app_path: app

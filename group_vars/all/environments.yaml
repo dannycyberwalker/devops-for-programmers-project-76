@@ -6,9 +6,17 @@ redmine_db_postgres: c-c9qmll7llu7njmi109lf.rw.mdb.yandexcloud.net
 redmine_db_port: 6432
 redmine_db_database: webdb
 redmine_db_username: danny
+redmine_db_password: "{{ secret_db_password }}" 
 
 # roles
 datadog_site: "datadoghq.eu"
-datadog_api_key: "{{ secret_datadog_key }}" 
+datadog_api_key: "{{ secret_datadog_key }}"
+datadog_checks:
+  http_check:
+    init_config:
+    instances:
+      - name: Main page
+        url: http://0.0.0.0:3000
+
 pip_install_packages:
   - name: docker 

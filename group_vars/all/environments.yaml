@@ -1,6 +1,14 @@
+# own
+app_path: app
+
+# docker's containers 
 redmine_db_postgres: c-c9qmll7llu7njmi109lf.rw.mdb.yandexcloud.net
 redmine_db_port: 6432
 redmine_db_database: webdb
 redmine_db_username: danny
+
+# roles
 datadog_site: "datadoghq.eu"
-app_path: app
+datadog_api_key: "{{ secret_datadog_key }}" 
+pip_install_packages:
+  - name: docker 

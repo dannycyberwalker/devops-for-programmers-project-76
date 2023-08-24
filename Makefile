@@ -18,6 +18,3 @@ vault:
 	echo "secret_datadog_key: $(ddkey)" >> group_vars/webservers/vault.yml
 	ansible-vault encrypt group_vars/webservers/vault.yml
 	echo "your vault password" > .vaultpassword
-
-drop-known-hosts:
-	rm ~/.ssh/known_hosts

@@ -17,7 +17,7 @@ datadog_checks:
     init_config:
     instances:
       - name: Main page
-        url: http://0.0.0.0:3000
+        url: "http://0.0.0.0:{{ redmine_external_port }}"
 
 pip_install_packages:
   - name: docker 

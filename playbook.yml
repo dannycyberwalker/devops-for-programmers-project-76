@@ -14,7 +14,7 @@
 
     - name: Copy .env
       ansible.builtin.template:
-        src: .env.template
+        src: templates/.env.template
         dest: "{{ app_path }}/.env"
       tags: redmine
 
@@ -25,9 +25,7 @@
         restart_policy: always
         state: started
         ports:
-          - 3000:3000
-        env:
-          REDMINE_DB_PASSWORD: "{{ redmine_db_password }}"
+          - "{{ redmine_external_port }}:3000"
         env_file: "{{ app_path }}/.env"
       tags: redmine
   

@@ -7,6 +7,7 @@ redmine_db_port: 6432
 redmine_db_database: webdb
 redmine_db_username: danny
 redmine_db_password: "{{ secret_db_password }}" 
+redmine_external_port: 3000
 
 # roles
 datadog_site: "datadoghq.eu"

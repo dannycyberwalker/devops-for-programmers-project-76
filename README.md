@@ -22,7 +22,9 @@ make vault dbpass=<your db password> ddkey=<your datadog api key>
 ```
 make setup-docker
 ```
-6. Configure and deploy to servers:
+6. Deploy commands:
 ```
 make deploy
+make deploy-redmine
+make deploy-datadog
 ``` 

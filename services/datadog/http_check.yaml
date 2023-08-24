@@ -1,5 +1,0 @@
-init_config:
-
-instances:
-  - name: Main page
-    url: http://0.0.0.0:3000
